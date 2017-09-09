@@ -1,15 +1,23 @@
 {
   "name": "tennis",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "jest": "^20.0.4"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/jest"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thitimaJainak/tennis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thitimaJainak/tennis/issues"
+  },
+  "homepage": "https://github.com/thitimaJainak/tennis#readme",
+  "description": ""
 }
