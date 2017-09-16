@@ -1,97 +1,103 @@
-function TennisGame() {
-    const scoreString = ['Love', 'Fifteen', 'Thirty', 'Forthy']
-    this.playerAScore = 0
-    this.playerBScore = 0
-
-    this.reset = () => {
-        this.playerAScore = 0
-        this.playerBScore = 0
+function TennisApp(){
+  let playerAScore = 0
+  let playerBScore = 0
+  const scoreString =['Love','Fifteen','Thirty','Forthy']
+  this.reset = () =>{
+    playerAScore = 0
+    playerBScore = 0
+  }
+  this.echo = () =>{
+    if(playerAScore > 3){
+      return 'Player A wins game'
+    }else if(playerBScore > 3) {
+      return 'Player B wins game'
     }
-
-    this.echo = () => {
-       return `${scoreString[this.playerAScore]} - ${scoreString[this.playerBScore]}`
-    }
-
-    this.playerAGetScore = () => {
-        this.playerAScore++
-    }
-
-    this.playerBGetScore = () => {
-      this.playerBScore++
-    }
-
+    return `${scoreString[playerAScore]} - ${scoreString[playerBScore]}`
+  }
+  this.playerAGetScore = () =>{
+    playerAScore++
+  }
+  this.playerBGetScore = () =>{
+    playerBScore++
+  }
 }
-describe('echo()',() => {
-  let app
-  beforeEach(()=>{
-    app = new TennisGame()
-    app.reset()
 
-  })
+describe('Tennis App',()=>{
+  describe('When player A gets score',()=>{
+    let app
+    function repeatPlayerAGetScoer(number){
+      for(let i =0; i< number;i++){
+        app.playerAGetScore()
+      }
+    }
 
-  test('Echo "Love - Love" when game start', () => {
-      // Arrange
-
-
-      // Act
-
+    beforeEach(()=>{
+      app = new TennisApp()
+      app.reset()
+    })
+    it('Should echo "Love - Love" When game start', ()=>{
       let result = app.echo()
-
-      // Assert
       expect(result).toBe('Love - Love')
-  })
-
-  test('Echo "Fifteen - Love" when playerA get first score', () => {
-      // Arrange
-
-      app.playerAGetScore()
-
-      // Act
+    })
+    it('Should echo "Fifteen - Love" When score is 15-0', ()=>{
+      repeatPlayerAGetScoer(1)
       let result = app.echo()
-
-      // Assert
       expect(result).toBe('Fifteen - Love')
-  })
-
-  test('Echo "Forthy - Thirty" when score is 40 - 30', () => {
-      // Arrange
-
-      app.playerAGetScore()
-      app.playerAGetScore()
-      app.playerAGetScore()
-      app.playerBGetScore()
-      app.playerBGetScore()
-
-      // Act
+    })
+    it('Should echo "Thirty - Love" When score is 30-0', ()=>{
+      repeatPlayerAGetScoer(2)
       let result = app.echo()
-
-      // Assert
-      expect(result).toBe('Forthy - Thirty')
-  })
-
-  test('Echo "Love - Fifteen" when playerB gte fiest score ', () => {
-      // Arrange
-
-      app.playerBGetScore()
-
-      // Act
+      expect(result).toBe('Thirty - Love')
+    })
+    it('Should echo "Forthy - Love" When score is 40-0', ()=>{
+      repeatPlayerAGetScoer(3)
       let result = app.echo()
+      expect(result).toBe('Forthy - Love')
+    })
+    it('Should echo "Player A wins game" When player A gets score at 40-0', ()=>{
+      repeatPlayerAGetScoer(4)
+      let result = app.echo()
+      expect(result).toBe('Player A wins game')
+    })
+  })
+})
 
-      // Assert
+describe('Tennis App',()=>{
+  describe('When player B gets score',()=>{
+    let app
+    function repeatPlayerBGetScoer(number){
+      for(let i =0; i< number;i++){
+        app.playerBGetScore()
+      }
+    }
+
+    beforeEach(()=>{
+      app = new TennisApp()
+      app.reset()
+    })
+    it('Should echo "Love - Love" When game start', ()=>{
+      let result = app.echo()
+      expect(result).toBe('Love - Love')
+    })
+    it('Should echo "Love - Fifteen" When score is 0-15', ()=>{
+      repeatPlayerBGetScoer(1)
+      let result = app.echo()
       expect(result).toBe('Love - Fifteen')
-  })
-  test('Echo "Thirty - Fifteen" when score is 30 - 15 ', () => {
-      // Arrange
-
-      app.playerAGetScore()
-      app.playerAGetScore()
-      app.playerBGetScore()
-
-      // Act
+    })
+    it('Should echo "Love - Thirty" When score is 0-30', ()=>{
+      repeatPlayerBGetScoer(2)
       let result = app.echo()
-
-      // Assert
-      expect(result).toBe('Thirty - Fifteen')
+      expect(result).toBe('Love - Thirty')
+    })
+    it('Should echo "Love - Forthy" When score is 0-40', ()=>{
+      repeatPlayerBGetScoer(3)
+      let result = app.echo()
+      expect(result).toBe('Love - Forthy')
+    })
+    it('Should echo "Player B wins game" When player B gets score at 0-40', ()=>{
+      repeatPlayerBGetScoer(4)
+      let result = app.echo()
+      expect(result).toBe('Player B wins game')
+    })
   })
-
 })
